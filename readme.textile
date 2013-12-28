@@ -1,6 +1,6 @@
-h1. Messing around with http://moorescloud.com/index.html#holiday:"Holiday by Moorescloud"
+h1. Messing around with Holiday
 
-Just some beginner level stuff.
+Just some beginner level stuff messing around with "Holiday by Moorescloud":http://moorescloud.com/index.html#holiday.
 
 h2. /bash
 
