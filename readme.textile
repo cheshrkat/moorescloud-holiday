@@ -1,0 +1,12 @@
+h1. Messing around with Holiday by Moorescloud
+
+Just some beginner level stuff.
+
+h2. /bash
+
+If you're feeling impatient, just run @holiday.sh@ for a set of options including the nice simple "off" ;)
+
+Dependencies: curl. On PC that means you'll need something like Cygwin with the curl module installed.
+
+* The simpler script is @holiday-setlights-with-json-files.sh@ which only does setlights taking its JSON objects from .json files.
+* There are more options in @holiday.sh@ - basically mucking around with more options, including sending JSON directly from the script.
