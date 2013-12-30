@@ -8,7 +8,7 @@ If you're feeling impatient, just run @holiday.sh@ for a set of options includin
 
 Scripts:
 * @holiday-setlights-with-json-files.sh@ just does setlights taking its JSON objects from .json files. Very simple, easy starting point.
-* @holiday.sh@ has more options including sending JSON directly from the script.
+* @holiday.sh@ has more options including sending JSON directly from the script. Uses setlights and gradient API points.
 * @nrl.sh@ adds the critically important maroon and blue options not present in the standard NRL app ;)
 
 Notes:

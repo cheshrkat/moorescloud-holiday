@@ -1,4 +1,5 @@
 #!/bin/bash
+
 SLEEPDURATION=.5
 HOLIDAYURL=enlightenment
 
@@ -13,6 +14,10 @@ sendjson() {
 pause() {
     sleep $SLEEPDURATION
 }
+
+# Because we're loading json files relative to the script, we need to be sure 
+# the script is running in the right place even if invoked elsewhere.
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 if [[ $1 == off ]];then
     sendfile setlights off
