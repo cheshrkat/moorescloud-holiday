@@ -17,6 +17,9 @@ pause() {
 if [[ $1 == off ]];then
     sendfile setlights off
 
+elif [[ $1 == on ]]; then
+    sendfile setlights on
+
 elif [[ $1 == randomgrad ]]; then
     # this one is nicked directly from http://support.moorescloud.com/2013/12/the-gradient-api-in-brief/
     BEGINR="0"
