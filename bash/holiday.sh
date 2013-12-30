@@ -91,6 +91,7 @@ $0 gradient         Run through gradients, sending JSON directly
 $0 gradientfile     Run through gradients, sending JSON from files
 $0 randomgrad       Run through random gradients
 $0 cycle            Cycle between red and varied colours
+$0 on               Turn lights on (white)
 $0 off              Turn lights off
 EOF
 
