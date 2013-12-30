@@ -4,14 +4,27 @@ Just some beginner level stuff messing around with "Holiday by Moorescloud":http
 
 h2. /bash
 
-If you're feeling impatient, just run @holiday.sh@ for a set of options including the nice simple "off" ;)
+If you're feeling impatient, just run @holiday.sh@ for a set of options including the nice simple "on" and "off" ;)
 
 Scripts:
 * @holiday-setlights-with-json-files.sh@ just does setlights taking its JSON objects from .json files. Very simple, easy starting point.
 * @holiday.sh@ has more options including sending JSON directly from the script.
-* @nrl.sh@ adds the critically missing maroon and blue options... ;)
+* @nrl.sh@ adds the critically important maroon and blue options not present in the standard NRL app ;)
 
 Notes:
 * Edit the @HOLIDAYURL@ variable in the .sh files so they point to your Holiday (IP or hostname)
 * Dependencies: curl. On PC that means you'll need something like Cygwin with the curl module installed.
 
+h2. /node-udp
+
+Uses "nodejs":http://nodejs.org/ and @garthk's "holiday-udp":https://github.com/garthk/holiday-udp library. Super-simple on and off examples.
+
+Usage:
+* npm install
+* node on.js
+* node off.js
+
+I did say they were simple ;)
+
+Notes:
+* Edit the "holiday" variable in the .js files so they point to your Holiday (IP or hostname).

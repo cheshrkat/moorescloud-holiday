@@ -1,0 +1,8 @@
+{
+    "name": "holiday", 
+    "version": "0.0.1", 
+    "private": true, 
+    "dependencies": {
+        "holiday-udp": "0.1.2"
+    }
+}
