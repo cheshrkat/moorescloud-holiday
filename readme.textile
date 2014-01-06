@@ -4,7 +4,7 @@ Just some beginner level stuff messing around with "Holiday by Moorescloud":http
 
 h2. /bash
 
-If you're feeling impatient, just run @holiday.sh@ for a set of options including the nice simple "on" and "off" ;)
+If you're feeling impatient, just run @holiday.sh@ for a set of options including the nice simple "on" and "off".
 
 Scripts:
 * @holiday-setlights-with-json-files.sh@ just does setlights taking its JSON objects from .json files. Very simple, easy starting point.
@@ -39,3 +39,6 @@ Usage:
 Dependencies:
 * Python
 * "requests":http://docs.python-requests.org/en/latest/user/install/#install
+
+Notes:
+Edit the URL in @requests.put@ to point to your holiday.

@@ -13,7 +13,10 @@ if command == 'on':
 elif command == 'off':
     colour = "000000"
 elif command == 'hash':
-    colour = sys.argv[2]  
+    colour = sys.argv[2]
+else:
+    print "Command not recognised."
+    exit()
 
 lights = []
 for i in range(50):
