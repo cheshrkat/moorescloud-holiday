@@ -1,6 +1,6 @@
 h1. Messing around with Holiday
 
-Just some beginner level stuff messing around with "Holiday by Moorescloud":http://moorescloud.com/index.html#holiday.
+Just some beginner level stuff messing around with "Holiday by Moorescloud":http://moorescloud.com/index.html#holiday. The goal here is just to turn the Holiday on and off, maybe with some extras.
 
 h2. /bash
 
@@ -20,11 +20,22 @@ h2. /node-udp
 Uses "nodejs":http://nodejs.org/ and @garthk's "holiday-udp":https://github.com/garthk/holiday-udp library. Super-simple on and off examples.
 
 Usage:
-* npm install
-* node on.js
-* node off.js
+* @npm install@
+* @node on.js@
+* @node off.js@
 
 I did say they were simple ;)
 
 Notes:
 * Edit the "holiday" variable in the .js files so they point to your Holiday (IP or hostname).
+
+h2. /python
+
+Usage:
+* @python holiday.py on@
+* @python holiday.py off@
+* @python holiday.py hash 123456@ (where 123456 is any valid colour hash)
+
+Dependencies:
+* Python
+* "requests":http://docs.python-requests.org/en/latest/user/install/#install
