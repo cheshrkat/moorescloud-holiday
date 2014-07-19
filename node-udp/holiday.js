@@ -1,33 +1,78 @@
+function strToArray (source) {
+    var strings, result = [];
+    var regexMulti = /\]\s?\,\s?\[/g; // ],[
+    var regexBrackets = /[\[\]]/g; // [ and ]
+
+    function convertToArr(str) {
+        var sourcestr = str.replace(regexBrackets,'');
+        var arr = sourcestr.split(',');
+        // coerce number strings
+        for(var i=0, ii = arr.length; i<ii; i++) {
+            if ( !isNaN(arr[i]) ) {
+                arr[i] = +arr[i];
+            }
+        }
+        return arr;
+    }
+
+    if (typeof(source) === 'string') {
+        if (regexMulti.test(source)) {
+            strings = source.split(regexMulti);
+            for (var i = 0, ii = strings.length; i < ii; i++) {
+                result.push( convertToArr(strings[i]) );
+            }
+        } else {
+            result = convertToArr(source);
+        }
+        return result;
+    } else {
+        return 'Error: input not a string.';
+    }
+
+}
+
 var Holiday = require('holiday-udp'),
     holiday = new Holiday('enlightenment'),
+    frame = [],
     args = process.argv,
     command = args[2],
-    fill = (args[3]) ? [args[3],args[3],args[3]] : [100,100,100],
-    chase = (args[4]) ? [args[4],args[4],args[4]] : [0,100,0],
-    frame = [],
+    fill = [50,50,50],
+    runner = (args[4]) ? strToArray(args[4]) : [[0,255,0],[0,10,0],[0,5,0]],
     interval = args[5] || 100;
 
-// print process.argv
-// process.argv.forEach(function (val, index, array) {
-//   console.log(index + ': ' + val);
-// });
+console.log("Holiday name: " + holiday.address);
 
-console.log("Holiday: " + holiday.address);
+if (args[3]) {
+    if (args[3].length < 4) {
+        fill = [args[3],args[3],args[3]];
+    } else {
+        fill = strToArray(args[3]);
+    }
+}
 
 function done() {
+    console.log("Done.");
     process.exit(0);
 }
 
-function createFrame(filler,chaser) {
-    console.log("filler: " + filler);
-    if (chaser) {
-        console.log("chaser: " + chaser);
-        fillLength = 50 - chaser.length;
-        frame.push(chaser);
-    }
-    for (var i = 0; i < 50; i++) {
+function createFrame(filler,runner) {
+    var fillLength = 50;
+
+    for (var ii = 0; ii < fillLength; ii++) {
         frame.push(filler);
     }
+    console.log("filler: " + JSON.stringify(filler));
+
+    if (runner) {
+        var runLen = runner.length;
+        fillLength = fillLength - runLen;
+        for (var i = 0; i < runLen; i++) {
+            frame.push(runner[i]);
+        }
+        console.log("runner: " + JSON.stringify(runner));
+        console.log("Lengths: runner - " + runner.length + ", filler - " + fillLength);
+    }
+    
     return frame;
 }
 
@@ -48,9 +93,9 @@ function off() {
     holiday.send([ ], done);
 }
 
-function startTheChase() {
-    frame = createFrame(fill,chase);
-    var startTheChase = global.setInterval(setLights,interval);
+function startTheRunner() {
+    frame = createFrame(fill,runner);
+    var gogogo = global.setInterval(setLights,interval);
     console.log("ctrl+c to stop lights");
 }
 
@@ -61,14 +106,14 @@ switch (command) {
     case "off":
         off();
         break;
-    case "chase":
-        startTheChase();
+    case "runner":
+        startTheRunner();
         break;
     default:
-        console.log()
+        console.log();
         console.log("Options:");
         console.log("on <fill 0-255>");
         console.log("off");
-        console.log("chase <fill 0-255> <chase 0-255> <interval ms>");
+        console.log("runner '<fill [0-255,0-255,0-255]>' '<chase [0-255,0-255,0-255]>' <interval ms>");
         break;
 }
