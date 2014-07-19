@@ -23,6 +23,7 @@ Usage:
 * @npm install@
 * @node on.js@
 * @node off.js@
+* @node holiday.js@ for more options including a runner/comet effect
 
 I did say they were simple ;)
 
