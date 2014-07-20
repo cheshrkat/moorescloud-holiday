@@ -8,8 +8,8 @@ If you're feeling impatient, just run @holiday.sh@ for a set of options includin
 
 Scripts:
 * @holiday-setlights-with-json-files.sh@ just does setlights taking its JSON objects from .json files. Very simple, easy starting point.
-* @holiday.sh@ has more options including sending JSON directly from the script. Uses setlights and gradient API points.
 * @nrl.sh@ adds the critically important maroon and blue options not present in the standard NRL app ;)
+* @holiday.sh@ has more options including sending JSON directly from the script. Uses setlights and gradient API points.
 
 Notes:
 * Edit the @HOLIDAYURL@ variable in the .sh files so they point to your Holiday (IP or hostname)
@@ -17,15 +17,13 @@ Notes:
 
 h2. /node-udp
 
-Uses "nodejs":http://nodejs.org/ and @garthk's "holiday-udp":https://github.com/garthk/holiday-udp library. Super-simple on and off examples.
+Uses "nodejs":http://nodejs.org/ and @garthk's "holiday-udp":https://github.com/garthk/holiday-udp library.
 
 Usage:
 * @npm install@
-* @node on.js@
-* @node off.js@
-* @node holiday.js@ for more options including a runner/comet effect
-
-I did say they were simple ;)
+* @node on.js@ & @node off.js@ do what they sound like.
+* @node chase.js@ does a simple coloured chase.
+* @node holiday.js@ does on and off; plus a runner/comet effect
 
 Notes:
 * Edit the "holiday" variable in the .js files so they point to your Holiday (IP or hostname).
