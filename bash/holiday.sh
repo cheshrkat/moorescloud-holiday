@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SLEEPDURATION=.5
+SLEEPDURATION=1
 HOLIDAYURL=enlightenment
 
 sendfile() {

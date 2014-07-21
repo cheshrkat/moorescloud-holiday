@@ -1,32 +1,56 @@
 #!/bin/bash
 HOLIDAYURL=enlightenment
+MAROON="113,0,10"
+BLUE="66,141,198"
+WHITE="100,100,100"
+SECONDS=2
+SLEEPDURATION=$(($SECONDS*2))
+STEPS=$(($SECONDS*50))
 
-sendfile() {
-    echo -e "\n$1"
-    curl -X PUT -d @$1.json http://"$HOLIDAYURL"/iotas/0.1/device/moorescloud.holiday/localhost/setlights    
+sendjson() {
+    echo -e "\n$1 $2"
+    curl -X PUT -d $2 http://"$HOLIDAYURL"/iotas/0.1/device/moorescloud.holiday/localhost/$1
 }
 pause() {
     sleep $SLEEPDURATION
 }
-
-if [[ $1 == off ]];then
-    sendfile off
-
-elif [[ $1 == maroons ]]; then
-    sendfile colour-qld
-
-elif [[ $1 == blues ]]; then
-    sendfile colour-nsw
-
-elif [[ $1 == cycle ]]; then
-
+on() {
+    sendjson gradient \{\"begin\":[0,0,0],\"end\":[$1],\"steps\":$STEPS\}
+    echo -e "\n\nUse '$0 off' to turn lights off"
+}
+off() {
+    sendjson gradient \{\"begin\":[0,0,0],\"end\":[0,0,0],\"steps\":1\}
+}
+cycle() {
+    echo -e "$SECONDS seconds, $STEPS steps."
     while (( 1 ))
     do
-        sendfile colour-qld
-        sleep 1
-        sendfile colour-nsw
-        sleep 1
+        sendjson gradient \{\"begin\":[$2],\"end\":[$1],\"steps\":$STEPS\}
+        pause
+        sendjson gradient \{\"begin\":[$1],\"end\":[$2],\"steps\":$STEPS\}
+        pause
     done
+}
+
+if [[ $1 == off ]];then
+    off
+
+elif [[ $1 == maroons ]]; then
+    if [[ $2 == cycle ]]; then
+        cycle $WHITE $MAROON
+    else
+        on $MAROON
+    fi
+
+elif [[ $1 == blues ]]; then
+    if [[ $2 == cycle ]]; then
+        cycle $WHITE $BLUE
+    else
+        on $BLUE
+    fi
+
+elif [[ $1 == cycle ]]; then
+    cycle $MAROON $BLUE
 
 else
 
