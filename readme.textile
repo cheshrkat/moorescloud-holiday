@@ -24,7 +24,7 @@ This one's a little different as you have to put it on the holiday (to avoid COR
 # Enable SSH on your holiday http://support.moorescloud.com/2013/12/how-to-ssh-into-your-holiday/
 # SSH or SFTP into your holiday
 # Then either...
-## Open Terminal/bash shell in @/javascript/@ and use @<notextile>scp * holiday@yourholidaysname:/home/holiday/holideck/iotas/www/apps/test/</notextile>@
+## Open Terminal/bash shell in @/javascript/@ and use @scp \* holiday\@yourholidaysname\:/home/holiday/holideck/iotas/www/apps/test/@
 ## Copy the files in @/javascript/@ to @/home/holiday/holideck/iotas/www/apps/test/@ using FTP
 # Browse to "http://yourholidaysname/apps/test/":http://yourholidaysname/apps/test/
 
