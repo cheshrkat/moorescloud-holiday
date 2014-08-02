@@ -3,16 +3,60 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
-    <title>jQuery Test</title>
+    <title>Holiday (javascript)</title>
     <style>
-    body { font-family: sans-serif; }
+    * { margin: 0;}
+    body { font-family: sans-serif; padding: 1rem; }
+    label, .label { min-width: 14rem; display: inline-block; }
+    button, input { min-width: 100px; }
+    [type='checkbox'] { min-width: 0; }
+    .item { margin: 1rem 0; }
+    #current span {
+        display: inline-block;
+        height: 1rem;
+        width: 1rem;
+        border: 0.1rem solid #000;
+        border-radius: 1rem;
+        margin: 0 0.1rem 0.1rem 0;
+    }
     </style>
 </head>
 <body>
+    <h1>Holiday</h1>
 
-    <button id="on">on</button>
-    <button id="off">off</button>
+    <div class="item" id="current"></div>
 
+    <div class="item">
+        <div class="label">Basic on/off:</div>
+        <button id="on">on (white)</button>
+        <button id="off">off (black)</button>
+    </div>
+
+    <div class="item">
+        <div>
+            <label for="visualise">Visualise lights?</label>
+            <input type="checkbox" id="visualise" checked />
+        </div>
+    </div>
+
+    <div class="item">
+        <label for="hex">Hex code for colour: #</label>
+        <input type="text" id="hex" maxlength="6" value="ff0000" />
+        <button id="hexOn">Set on</button>
+    </div>
+
+    <div class="item">
+        <label for="html5hex">html5hex code for colour: </label>
+        <input type="color" id="html5hex" value="#00ff00" />
+        <button id="html5hexOn">Set on</button>
+    </div>
+
+    <script>
+        if (window.location.protocol === 'file:') {
+            document.querySelector('h1').innerText += ' (local mode, visualise only)';
+            // document.getElementById('visualise').setAttribute('disabled', 'disabled');
+        }
+    </script>
     <script src="holiday.js"></script>
 
 </body>
