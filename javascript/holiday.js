@@ -34,6 +34,21 @@
 
     }
 
+    // Returns array of desired length created by looping through source array
+    function fillArr(source, size) {
+        var arr = [],
+            i,
+            limit = source.length - 1,
+            counter = 0;
+
+        for (i=0; i<size; i++) {
+            arr.push(source[counter]);
+            counter = (counter === limit) ? 0 : counter+1;
+        }
+
+        return arr;
+    }
+
     /* 
     Returns 
     { "lights": [ "#ffffff", "#ffffff", ... ]} 
@@ -43,11 +58,14 @@
     */
     function createFrame(filler,runner) {
         var frame = [];
+        var fillSource = filler.split(',');
         var fillLength = 50;
 
-        for (var ii = 0; ii < fillLength; ii++) {
-            frame.push(filler);
-        }
+        // for (var ii = 0; ii < fillLength; ii++) {
+        //     frame.push(filler);
+        // }
+        frame = fillArr(fillSource, fillLength);
+        console.log("frame: " + frame);
         console.log("filler: " + JSON.stringify(filler));
 
         if (runner) {
@@ -121,6 +139,13 @@
     var html5hexOnButton = document.getElementById("html5hexOn");
     html5hexOnButton.addEventListener('click', function(){
         setAndVisualise(createFrame(html5hexInput.value));
+        return false;
+    });
+
+    var multiHexInput = document.getElementById("multiHex");
+    var multiHexOnButton = document.getElementById("multiHexOn");
+    multiHexOnButton.addEventListener('click', function(){
+        setAndVisualise(createFrame(multiHexInput.value));
         return false;
     });
 

@@ -13,11 +13,18 @@
     .item { margin: 1rem 0; }
     #current span {
         display: inline-block;
-        height: 1rem;
-        width: 1rem;
-        border: 0.1rem solid #000;
-        border-radius: 1rem;
-        margin: 0 0.1rem 0.1rem 0;
+        height: 20px;
+        width: 20px;
+        border: 1px solid #000;
+        border-radius: 20px;
+        margin: 0 2px 2px 0;
+
+    /* this won't work until the visualiser updates the existing elements instead of simply blowing them away
+        background: #fff;
+        -moz-transition:    all 1s ease-in;
+        -webkit-transition: all 1s ease-in;
+        transition:         all 1s ease-in; 
+    */
     }
     </style>
 </head>
@@ -40,14 +47,20 @@
     </div>
 
     <div class="item">
-        <label for="hex">Hex code for colour: #</label>
-        <input type="text" id="hex" maxlength="6" value="ff0000" />
+        <label for="hex">Hex colour (leave out #):</label>
+        <input type="text" id="hex" value="ff0000" placeholder="eg. ff0000" />
         <button id="hexOn">Set on</button>
     </div>
 
     <div class="item">
-        <label for="html5hex">html5hex code for colour: </label>
-        <input type="color" id="html5hex" value="#00ff00" />
+        <label for="multiHex">multi hex colour (#111111,#222222,...):</label>
+        <input type="text" id="multiHex" value="#ff0000,#00ff00,#0000ff" />
+        <button id="multiHexOn">Set on</button>
+    </div>
+
+    <div class="item">
+        <label for="html5hex">html5/hex colour (include #): </label>
+        <input type="color" id="html5hex" value="#00ff00" placeholder="eg. #00ff00" />
         <button id="html5hexOn">Set on</button>
     </div>
 
