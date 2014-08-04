@@ -7,7 +7,7 @@
     <style>
     * { margin: 0;}
     body { font-family: sans-serif; padding: 1rem; }
-    label, .label { min-width: 14rem; display: inline-block; }
+    label, .label { min-width: 20rem; display: inline-block; }
     button, input { min-width: 100px; }
     [type='checkbox'] { min-width: 0; }
     .item { margin: 1rem 0; }
@@ -62,6 +62,13 @@
         <label for="html5hex">html5/hex colour (include #): </label>
         <input type="color" id="html5hex" value="#00ff00" placeholder="eg. #00ff00" />
         <button id="html5hexOn">Set on</button>
+    </div>
+
+    <div class="item">
+        <label for="chaseint">Chase interval(ms):</label>
+        <input type="number" id="chaseint" value="1000">
+        <button id="startChase">Start Chase</button>
+        <button id="stopChase">Stop Chase</button>
     </div>
 
     <script>

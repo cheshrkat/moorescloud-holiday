@@ -1,6 +1,7 @@
 (function(){
 
     /* Takes a string and converts it to an array. Presumes that the string is array-like, ie. has square brackets and commas. Coerces number strings to numbers. */
+    /*
     function strToArray (source) {
         var strings, result = [];
         var regexMulti = /\]\s?\,\s?\[/g; // ],[
@@ -33,6 +34,7 @@
         }
 
     }
+    */
 
     // Returns array of desired length created by looping through source array
     function fillArr(source, size) {
@@ -49,21 +51,15 @@
         return arr;
     }
 
-    /* 
-    Returns 
-    { "lights": [ "#ffffff", "#ffffff", ... ]} 
-    ...with 50 values in total.
-    Filler: Hex value to "fill" the array to 50
-    Runner: Array of hex values to start the array
-    */
+    /*  Returns { "lights": [ "#ffffff", "#ffffff", ... ]} with 50 values in total.
+        Filler: Hex value to "fill" the array to 50
+        Runner: Array of hex values to start the array */
     function createFrame(filler,runner) {
-        var frame = [];
-        var fillSource = filler.split(',');
-        var fillLength = 50;
+        var frame = [],
+            fillSource = filler.split(','),
+            fillLength = 50,
+            result = {};
 
-        // for (var ii = 0; ii < fillLength; ii++) {
-        //     frame.push(filler);
-        // }
         frame = fillArr(fillSource, fillLength);
         console.log("frame: " + frame);
         console.log("filler: " + JSON.stringify(filler));
@@ -78,7 +74,9 @@
             console.log("Lengths: runner - " + runner.length + ", filler - " + fillLength);
         }
 
-        return JSON.stringify({ "lights": frame });
+        currentLightFrame = { "lights": frame };
+        console.log("currentLightFrame: " + currentLightFrame);
+        return currentLightFrame;
     }
 
     function setLights(lights) {
@@ -86,7 +84,7 @@
         var request = new XMLHttpRequest();
         request.open('PUT', '/iotas/0.1/device/moorescloud.holiday/localhost/setlights', true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        request.send(lights);
+        request.send(JSON.stringify(lights));
     }
 
     function visualiseLights(lights) {
@@ -94,7 +92,7 @@
         current.innerHTML = '';
 
         if (lights) {
-            var currentLightArray = JSON.parse(lights);
+            var currentLightArray = lights;
 
             for(var i=0; i < currentLightArray.lights.length; i++) {
                 var currentLight = document.createElement('span');
@@ -124,34 +122,63 @@
         }
     }
 
-    var onButton = document.getElementById('on');
-    var offButton = document.getElementById('off');
-    onButton.addEventListener('click', function(){
+    function shiftFrame() {
+        var shifted = currentLightFrame.lights.shift();
+        currentLightFrame.lights.push(shifted);
+    }
+
+    function stopChase() {
+        if (timer !== null) {
+            clearInterval(timer);
+            timer = null;
+        }
+    }
+    var chaseintInput = document.getElementById('chaseint');
+    var timer = null,
+        value = 0;
+    document.getElementById('startChase').addEventListener('click', function(){
+        var interval = chaseintInput.value || 1000;
+        if (interval < 100) {
+            alert("Interval of 100+ recommended.");
+            return;
+        }
+        stopChase();
+        timer = setInterval(function () {
+            shiftFrame();
+            setAndVisualise(currentLightFrame);
+        }, interval);
+        return false;
+    });
+    document.getElementById('stopChase').addEventListener('click', function(){
+        stopChase();
+        return false;
+    });
+
+    document.getElementById('on').addEventListener('click', function(){
         setAndVisualise(createFrame('#ffffff'));
         return false;
     });
-    offButton.addEventListener('click', function(){
+    document.getElementById('off').addEventListener('click', function(){
         setAndVisualise(createFrame('#000000'));
+        stopChase();
         return false;
     });
 
     var html5hexInput = document.getElementById("html5hex");
-    var html5hexOnButton = document.getElementById("html5hexOn");
-    html5hexOnButton.addEventListener('click', function(){
+    document.getElementById("html5hexOn").addEventListener('click', function(){
         setAndVisualise(createFrame(html5hexInput.value));
+        // this.innerText = "Set on (" + html5hexInput.value + ")";
         return false;
     });
 
     var multiHexInput = document.getElementById("multiHex");
-    var multiHexOnButton = document.getElementById("multiHexOn");
-    multiHexOnButton.addEventListener('click', function(){
+    document.getElementById("multiHexOn").addEventListener('click', function(){
         setAndVisualise(createFrame(multiHexInput.value));
         return false;
     });
 
     var hexInput = document.getElementById("hex");
-    var hexOnButton = document.getElementById("hexOn");
-    hexOnButton.addEventListener('click', function(){
+    document.getElementById("hexOn").addEventListener('click', function(){
         var hexColour = hexInput.value;
         if (hexColour.length === 6) {
             setAndVisualise(createFrame('#' + hexInput.value));
