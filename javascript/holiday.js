@@ -1,5 +1,13 @@
 (function(){
 
+    var viewingLocalhost = (window.location.protocol != 'file:'); // boolean
+
+    // log(content) {
+    //     if (viewingLocalhost) {
+    //         console.log(content);
+    //     }
+    // }
+
     /* Takes a string and converts it to an array. Presumes that the string is array-like, ie. has square brackets and commas. Coerces number strings to numbers. */
     /*
     function strToArray (source) {
@@ -75,33 +83,85 @@
         }
 
         currentLightFrame = { "lights": frame };
-        console.log("currentLightFrame: " + currentLightFrame);
+        console.log("currentLightFrame", currentLightFrame);
         return currentLightFrame;
     }
 
-    function setLights(lights) {
-        console.log("Lights: " + lights);
+    // cheers to http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+    function hexToRgb(hex) {
+        console.log("hex: " + hex);
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        var res = result ? [
+            parseInt(result[1], 16),
+            parseInt(result[2], 16),
+            parseInt(result[3], 16)
+        ] : hex;
+
+        console.log("hex converted: ", res);
+        return res;
+    }
+
+    function createGradFrame(from,to,steps) {
+        var gradFrom = from || [0, 0, 0];
+        var gradTo = to || [255, 0, 0];
+        var gradSteps = steps || 50; // 50 = 1 second
+
+        if ( typeof gradFrom === 'string') {
+            gradFrom = hexToRgb(gradFrom);
+        }
+        if ( typeof gradTo === 'string') {
+            gradTo = hexToRgb(gradTo);
+        }
+
+        var gradJSON = {
+            "begin": gradFrom,
+            "end": gradTo,
+            "steps": gradSteps
+        };
+        console.log("createGradFrame", gradJSON);
+        return gradJSON;
+    }
+
+    function setLights(lights,lightType) {
+        var type = lightType || 'setlights'; // can be 'setlights' or 'gradient'
+        var apiURL = '/iotas/0.1/device/moorescloud.holiday/localhost/' + type;
+
+        // console.log("setLights",lights);
+        // console.log("lightType",lightType);
+        // console.log("apiURL",apiURL);
+ 
         var request = new XMLHttpRequest();
-        request.open('PUT', '/iotas/0.1/device/moorescloud.holiday/localhost/setlights', true);
+        request.open('PUT', apiURL, true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send(JSON.stringify(lights));
     }
 
-    function visualiseLights(lights) {
+    function visualiseLights(lights,lightType) {
         var current = document.getElementById('current');
         current.innerHTML = '';
 
         if (lights) {
             var currentLightArray = lights;
+            len = 50;
 
-            for(var i=0; i < currentLightArray.lights.length; i++) {
+            if (lightType != 'gradient') {
+                len = currentLightArray.lights.length;
+            }
+
+            for(var i=0; i < len; i++) {
                 var currentLight = document.createElement('span');
-                var currentColour = currentLightArray.lights[i];
+                var currentColour;
 
-                currentLight.style.background = currentColour;
+                if (lightType === 'gradient') {
+                    currentColour = currentLightArray.end;
+                    currentLight.style.background = 'rgb(' + currentColour + ')';
+                } else {
+                    currentColour = currentLightArray.lights[i];
+                    currentLight.style.background = currentColour;
 
-                if (currentColour === '#000000') {
-                    currentLight.style.borderColor = '#fff';
+                    if (currentColour === '#000000') {
+                        currentLight.style.borderColor = '#fff';
+                    }
                 }
 
                 current.appendChild(currentLight);
@@ -109,16 +169,16 @@
         }
     }
 
-    function setAndVisualise(lights) {
+    function setAndVisualise(lights,lightType) {
         // setLights only works on the holiday; so if you're viewing this locally 
         // we just skip hitting the API. You can still visualise the lights.
-        if (window.location.protocol != 'file:') {
-            setLights(lights);
-        }
         if (document.getElementById('visualise').checked) {
-            visualiseLights(lights);
+            visualiseLights(lights,lightType);
         } else {
             visualiseLights(false);
+        }
+        if (viewingLocalhost) {
+            setLights(lights,lightType);
         }
     }
 
@@ -180,12 +240,17 @@
     var hexInput = document.getElementById("hex");
     document.getElementById("hexOn").addEventListener('click', function(){
         var hexColour = hexInput.value;
-        if (hexColour.length === 6) {
-            setAndVisualise(createFrame('#' + hexInput.value));
-        } else {
-            alert("You must enter 6 digits, no #.");
-            setTimeout(function(){hexInput.focus();}, 1);
-        }
+        setAndVisualise(createFrame(hexInput.value));
+        return false;
+    });
+
+    var gradInput = document.getElementById("grad");
+    document.getElementById("gradOn").addEventListener('click', function(){
+        setAndVisualise(createGradFrame('#000000', gradInput.value),'gradient');
+        return false;
+    });
+    document.getElementById("gradOff").addEventListener('click', function(){
+        setAndVisualise(createGradFrame(gradInput.value, [0,0,0]),'gradient');
         return false;
     });
 
