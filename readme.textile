@@ -1,6 +1,8 @@
+!https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday.png!
+
 h1. Messing around with Holiday
 
-Getting "Holiday by Moorescloud":http://moorescloud.com/index.html#holiday to do core things in a few different languages - from the simple on/off to chase, comet and gradient effects.
+Getting "Holiday by Moorescloud":http://moorescloud.com/index.html#holiday to do some relatively simple things in a few different languages - from the simple on/off to chase, comet and gradient effects.
 
 h2. /bash
 
