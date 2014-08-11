@@ -1,6 +1,6 @@
 h1. Messing around with Holiday
 
-Just some beginner level stuff messing around with "Holiday by Moorescloud":http://moorescloud.com/index.html#holiday. The goal here is just to turn the Holiday on and off, maybe with some extras.
+Getting "Holiday by Moorescloud":http://moorescloud.com/index.html#holiday to do core things in a few different languages - from the simple on/off to chase, comet and gradient effects.
 
 h2. /bash
 
