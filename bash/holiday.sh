@@ -33,7 +33,7 @@ elif [[ $1 == randomgrad ]]; then
     while ((1))
         do
          ENDR=$(($RANDOM % 255))
-         ENDG="0"
+         ENDG=$(($RANDOM % 255))
          ENDB=$(($RANDOM % 255))
          #JSON=\{\"begin\"\: \[ $BEGINR, $BEGING, $BEGINB \], \"end\"\: \[ $ENDR, $ENDG, $ENDB \], \"steps\"\: 50 \}
          #echo $JSON
@@ -43,7 +43,7 @@ elif [[ $1 == randomgrad ]]; then
          JSON={\"begin\":$BEGINER,\"end\":$ENDER,\"steps\":50}
          echo $JSON
          curl -X PUT -d $JSON http://$HOLIDAYURL/iotas/0.1/device/moorescloud.holiday/localhost/gradient
-         sleep 1.1
+         sleep $SLEEPDURATION
          BEGINR=$ENDR
          BEGING=$ENDG
          BEGINB=$ENDB
