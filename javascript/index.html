@@ -17,21 +17,28 @@
         width: 20px;
         border: 1px solid #000;
         border-radius: 20px;
-        margin: 0 2px 2px 0;
-
-    /* this won't work until the visualiser updates the existing elements instead of simply blowing them away
+        margin: 0 2px 2px 0; 
         background: #fff;
-        -moz-transition:    all 1s ease-in;
-        -webkit-transition: all 1s ease-in;
-        transition:         all 1s ease-in; 
-    */
+       }
+    #current span.gradient {
+        -moz-transition:    
+            background 1s linear,
+            border-color 1s linear;
+        -webkit-transition: 
+            background 1s linear,
+            border-color 1s linear;
+        transition:         
+            background 1s linear,
+            border-color 1s linear;
     }
     </style>
 </head>
 <body>
     <h1>Holiday</h1>
 
-    <div class="item" id="current"></div>
+    <div class="item" id="current">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
 
     <div class="item">
         <div class="label">Basic on/off:</div>

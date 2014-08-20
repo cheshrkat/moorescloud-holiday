@@ -1,6 +1,7 @@
 (function(){
 
-    var viewingLocalhost = (window.location.protocol != 'file:'); // boolean
+    var viewingLocalhost = (window.location.protocol == 'file:'); // boolean
+    var $lights = document.querySelectorAll('#current span');
 
     // log(content) {
     //     if (viewingLocalhost) {
@@ -125,47 +126,46 @@
     function setLights(lights,lightType) {
         var type = lightType || 'setlights'; // can be 'setlights' or 'gradient'
         var apiURL = '/iotas/0.1/device/moorescloud.holiday/localhost/' + type;
-
-        // console.log("setLights",lights);
-        // console.log("lightType",lightType);
-        // console.log("apiURL",apiURL);
- 
         var request = new XMLHttpRequest();
         request.open('PUT', apiURL, true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send(JSON.stringify(lights));
     }
 
-    function visualiseLights(lights,lightType) {
-        var current = document.getElementById('current');
-        current.innerHTML = '';
+    function applyCss(selector, cssAttr, cssValue) {
+        var nodelist = document.querySelectorAll(selector);
+        var ii = nodelist.length;
+        for(var i=0; i<ii; i++) {
+            nodelist[i].style[cssAttr]=cssValue;
+        }
+    }
 
+    function visualiseLights(lights,lightType) {
         if (lights) {
             var currentLightArray = lights;
-            len = 50;
 
-            if (lightType != 'gradient') {
-                len = currentLightArray.lights.length;
-            }
-
-            for(var i=0; i < len; i++) {
-                var currentLight = document.createElement('span');
-                var currentColour;
+            [].forEach.call($lights, function(currentLight, i){
 
                 if (lightType === 'gradient') {
+                    currentLight.setAttribute('class','gradient');
                     currentColour = currentLightArray.end;
                     currentLight.style.background = 'rgb(' + currentColour + ')';
                 } else {
+                    currentLight.setAttribute('class','binary');
                     currentColour = currentLightArray.lights[i];
                     currentLight.style.background = currentColour;
-
-                    if (currentColour === '#000000') {
-                        currentLight.style.borderColor = '#fff';
-                    }
                 }
 
-                current.appendChild(currentLight);
-            }
+                switch (currentColour) {
+                  case "#fff":
+                  case "#ffffff":
+                    currentLight.style.borderColor = '#000';
+                    break;
+                  default:
+                    currentLight.style.borderColor = '#fff';
+                }
+
+            });
         }
     }
 
@@ -177,7 +177,7 @@
         } else {
             visualiseLights(false);
         }
-        if (viewingLocalhost) {
+        if (!viewingLocalhost) {
             setLights(lights,lightType);
         }
     }
