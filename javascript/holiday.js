@@ -3,11 +3,11 @@
     var viewingLocalhost = (window.location.protocol == 'file:'); // boolean
     var $lights = document.querySelectorAll('#current span');
 
-    // log(content) {
-    //     if (viewingLocalhost) {
-    //         console.log(content);
-    //     }
-    // }
+    function log(content) {
+        if (viewingLocalhost) {
+            console.log(content);
+        }
+    }
 
     /* Takes a string and converts it to an array. Presumes that the string is array-like, ie. has square brackets and commas. Coerces number strings to numbers. */
     /*
@@ -70,8 +70,8 @@
             result = {};
 
         frame = fillArr(fillSource, fillLength);
-        console.log("frame: " + frame);
-        console.log("filler: " + JSON.stringify(filler));
+        log("frame: " + frame);
+        log("filler: " + JSON.stringify(filler));
 
         if (runner) {
             var runLen = runner.length;
@@ -79,18 +79,18 @@
             for (var i = 0; i < runLen; i++) {
                 frame.push(runner[i]);
             }
-            console.log("runner: " + JSON.stringify(runner));
-            console.log("Lengths: runner - " + runner.length + ", filler - " + fillLength);
+            log("runner: " + JSON.stringify(runner));
+            log("Lengths: runner - " + runner.length + ", filler - " + fillLength);
         }
 
         currentLightFrame = { "lights": frame };
-        console.log("currentLightFrame", currentLightFrame);
+        log("currentLightFrame", currentLightFrame);
         return currentLightFrame;
     }
 
     // cheers to http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
     function hexToRgb(hex) {
-        console.log("hex: " + hex);
+        log("hex: " + hex);
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         var res = result ? [
             parseInt(result[1], 16),
@@ -98,7 +98,7 @@
             parseInt(result[3], 16)
         ] : hex;
 
-        console.log("hex converted: ", res);
+        log("hex converted: ", res);
         return res;
     }
 
@@ -119,7 +119,7 @@
             "end": gradTo,
             "steps": gradSteps
         };
-        console.log("createGradFrame", gradJSON);
+        log("createGradFrame", gradJSON);
         return gradJSON;
     }
 
@@ -156,9 +156,10 @@
                     currentLight.style.background = currentColour;
                 }
 
-                switch (currentColour) {
-                  case "#fff":
-                  case "#ffffff":
+                switch (currentColour.toString()) {
+                  case '#fff':
+                  case '#ffffff':
+                  case '255,255,255':
                     currentLight.style.borderColor = '#000';
                     break;
                   default:
@@ -170,13 +171,28 @@
     }
 
     function setAndVisualise(lights,lightType) {
+        var lighturl = lightType || 'setlights';
+        var $currentlog = document.getElementById('currentlog');
+        var $currentapiurl = document.getElementById('currentapiurl');
+        var $log = document.getElementById('log');
+        var $visualise = document.getElementById('visualise');
         // setLights only works on the holiday; so if you're viewing this locally 
         // we just skip hitting the API. You can still visualise the lights.
-        if (document.getElementById('visualise').checked) {
+
+        if ($visualise.checked) {
             visualiseLights(lights,lightType);
         } else {
             visualiseLights(false);
         }
+
+        if ($log.checked) {
+            $currentlog.innerText = JSON.stringify(lights);
+            $currentapiurl.innerText = '/iotas/0.1/device/moorescloud.holiday/localhost/' + lighturl;
+        } else {
+            $currentlog.innerText = '';
+            $currentapiurl.innerText = '';
+        }
+
         if (!viewingLocalhost) {
             setLights(lights,lightType);
         }

@@ -31,13 +31,28 @@
             background 1s linear,
             border-color 1s linear;
     }
+    #currentlog {
+        word-break: break-word;
+        font-family: monospace;
+    }
+    #visualiser {
+        padding: 1rem;
+        border: 1px solid #eee;
+    }
+    #currentapiurl {
+        margin-bottom: 1rem;
+    }
     </style>
 </head>
 <body>
     <h1>Holiday</h1>
 
-    <div class="item" id="current">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    <div id="visualiser">
+        <div class="item" id="current">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div id="currentapiurl"></div>
+        <div id="currentlog">{"lights":["notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!"]}</div>
     </div>
 
     <div class="item">
@@ -50,6 +65,13 @@
         <div>
             <label for="visualise">Visualise lights?</label>
             <input type="checkbox" id="visualise" checked />
+        </div>
+    </div>
+
+    <div class="item">
+        <div>
+            <label for="log">Log lights data?</label>
+            <input type="checkbox" id="log" checked />
         </div>
     </div>
 
