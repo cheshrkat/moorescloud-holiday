@@ -19,15 +19,16 @@ Notes:
 
 h2. /javascript
 
-Sets the lights and also does a simple visualisation of the lights.
+Sets the lights and also does a simple visualisation of the lights and API calls:
 
-This one's a little different as you have to put it on the holiday (to avoid CORS issues) to actually control the lights. However if you view it locally it still does the visualisation.
+!https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-visualiser.png!
+
+This one's a little different as you have to put it on the holiday (to avoid CORS issues) to actually control the lights. If you view it locally it still does the visualisation but it won't actually affect the lights.
 
 # Enable SSH on your holiday http://support.moorescloud.com/2013/12/how-to-ssh-into-your-holiday/
-# SSH or SFTP into your holiday
 # Then either...
-## Open Terminal/bash shell in @/javascript/@ and use <code>scp * holiday@yourholidaysname:/home/holiday/holideck/iotas/www/apps/test/</code> to copy the files to your holiday.
-## Copy the files in @/javascript/@ to @/home/holiday/holideck/iotas/www/apps/test/@ using FTP
+## Open Terminal/bash shell in your local copy of @/javascript/@ and use <code>scp * holiday@yourholidaysname:/home/holiday/holideck/iotas/www/apps/test/</code> to copy the files to your holiday.
+## Copy the files in @/javascript/@ to @/home/holiday/holideck/iotas/www/apps/test/@ using sFTP
 # Browse to "http://yourholidaysname/apps/test/":http://yourholidaysname/apps/test/
 
 h2. /node-udp
