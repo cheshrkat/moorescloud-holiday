@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
     <title>Holiday (javascript)</title>
     <style>
-    * { margin: 0;}
-    body { font-family: sans-serif; padding: 1rem; }
+    * { margin: 0; }
+    body { font-family: sans-serif; padding: 1rem; font-size: 14px; }
     label, .label { min-width: 20rem; display: inline-block; }
     button, input { min-width: 100px; }
     [type='checkbox'] { min-width: 0; }
@@ -31,7 +31,7 @@
             background 1s linear,
             border-color 1s linear;
     }
-    #currentlog {
+    .code {
         word-break: break-word;
         font-family: monospace;
     }
@@ -42,6 +42,7 @@
     #currentapiurl {
         margin-bottom: 1rem;
     }
+    hr { background: #eee; height: 1px; border: 0; }
     </style>
 </head>
 <body>
@@ -51,8 +52,8 @@
         <div class="item" id="current">
             <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
-        <div id="currentapiurl"></div>
-        <div id="currentlog">{"lights":["notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!","notset!"]}</div>
+        <div class="code" id="currentapiurl">URL not set in current session</div>
+        <div class="code" id="currentlog">Lights not set in current session</div>
     </div>
 
     <div class="item">
@@ -60,6 +61,45 @@
         <button id="on">on (white)</button>
         <button id="off">off (black)</button>
     </div>
+
+    <div class="item">
+        <label for="hex">Hex colour:</label>
+        <input type="text" id="hex" value="#ff0000" placeholder="eg. #ff0000" />
+        <button id="hexOn">Set on</button>
+    </div>
+
+    <div class="item">
+        <label for="html5hex">html5/hex colour: </label>
+        <input type="color" id="html5hex" value="#00ff00" placeholder="eg. #00ff00" />
+        <button id="html5hexOn">Set on</button>
+        <span class="code" id="html5hexvalue"></span>
+    </div>
+
+    <hr />
+
+    <div class="item">
+        <label for="multiHex">multi hex colour (#111111,#222222,...):</label>
+        <input type="text" id="multiHex" value="#ff0000,#00ff00,#0000ff" />
+        <button id="multiHexOn">Set on</button>
+    </div>
+
+    <div class="item">
+        <label for="chaseint">Chase interval(ms):</label>
+        <input type="number" id="chaseint" value="1000">
+        <button id="startChase">Start Chase</button>
+        <button id="stopChase">Stop Chase</button>
+    </div>
+
+    <hr />
+
+    <div class="item">
+        <label for="grad">Set colour with gradient: </label>
+        <input type="text" id="grad" value="#0000ff" placeholder="eg. #0000ff" />
+        <button id="gradOn">Set on</button>
+        <button id="gradOff">Set off</button>
+    </div>
+
+    <hr />
 
     <div class="item">
         <div>
@@ -70,42 +110,11 @@
 
     <div class="item">
         <div>
-            <label for="log">Log lights data?</label>
+            <label for="log">Show data for API call?</label>
             <input type="checkbox" id="log" checked />
         </div>
     </div>
 
-    <div class="item">
-        <label for="hex">Hex colour:</label>
-        <input type="text" id="hex" value="#ff0000" placeholder="eg. #ff0000" />
-        <button id="hexOn">Set on</button>
-    </div>
-
-    <div class="item">
-        <label for="multiHex">multi hex colour (#111111,#222222,...):</label>
-        <input type="text" id="multiHex" value="#ff0000,#00ff00,#0000ff" />
-        <button id="multiHexOn">Set on</button>
-    </div>
-
-    <div class="item">
-        <label for="html5hex">html5/hex colour: </label>
-        <input type="color" id="html5hex" value="#00ff00" placeholder="eg. #00ff00" />
-        <button id="html5hexOn">Set on</button>
-    </div>
-
-    <div class="item">
-        <label for="grad">Set colour with gradient: </label>
-        <input type="text" id="grad" value="#00ff00" placeholder="eg. #00ff00" />
-        <button id="gradOn">Set on</button>
-        <button id="gradOff">Set off</button>
-    </div>
-
-    <div class="item">
-        <label for="chaseint">Chase interval(ms):</label>
-        <input type="number" id="chaseint" value="1000">
-        <button id="startChase">Start Chase</button>
-        <button id="stopChase">Stop Chase</button>
-    </div>
 
     <script>
         if (window.location.protocol === 'file:') {

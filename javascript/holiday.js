@@ -241,9 +241,10 @@
     });
 
     var html5hexInput = document.getElementById("html5hex");
+    var html5hexValue = document.getElementById("html5hexvalue");
     document.getElementById("html5hexOn").addEventListener('click', function(){
         setAndVisualise(createFrame(html5hexInput.value));
-        // this.innerText = "Set on (" + html5hexInput.value + ")";
+        html5hexValue.innerText = "Last set to: " + html5hexInput.value;
         return false;
     });
 
