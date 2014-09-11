@@ -1,49 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Holiday (javascript)</title>
-    <style>
-    * { margin: 0; }
-    body { font-family: sans-serif; padding: 1rem; font-size: 14px; }
-    label, .label { min-width: 20rem; display: inline-block; }
-    button, input { min-width: 100px; }
-    [type='checkbox'] { min-width: 0; }
-    .item { margin: 1rem 0; }
-    #current span {
-        display: inline-block;
-        height: 20px;
-        width: 20px;
-        border: 1px solid #000;
-        border-radius: 20px;
-        margin: 0 2px 2px 0; 
-        background: #fff;
-       }
-    #current span.gradient {
-        -moz-transition:    
-            background 1s linear,
-            border-color 1s linear;
-        -webkit-transition: 
-            background 1s linear,
-            border-color 1s linear;
-        transition:         
-            background 1s linear,
-            border-color 1s linear;
-    }
-    .code {
-        word-break: break-word;
-        font-family: monospace;
-    }
-    #visualiser {
-        padding: 1rem;
-        border: 1px solid #eee;
-    }
-    #currentapiurl {
-        margin-bottom: 1rem;
-    }
-    hr { background: #eee; height: 1px; border: 0; }
-    </style>
+    <link rel="stylesheet" href="holiday.css" media="all" />
 </head>
 <body>
     <h1>Holiday</h1>
@@ -93,6 +55,10 @@
     <hr />
 
     <div class="item">
+        <label for="gradSteps">Gradient steps (50 steps/second): </label>
+        <input type="number" id="gradSteps" value="128" placeholder="eg. 128" />
+    </div>
+    <div class="item">
         <label for="grad">Set colour with gradient: </label>
         <input type="text" id="grad" value="#0000ff" placeholder="eg. #0000ff" />
         <button id="gradOn">Set on</button>
@@ -102,13 +68,34 @@
     <hr />
 
     <div class="item">
+        <label for="randomGradSteps">Gradient steps (50 steps/second): </label>
+        <input type="number" id="randomGradSteps" value="200" placeholder="eg. 200" />
+    </div>
+    <div class="item">
+        <label for="gradInterval">Gradient interval: </label>
+        <input type="number" id="gradInterval" value="10000" placeholder="eg. 10000" />
+    </div>
+    <div class="item">
+        <label for="randomGradMaxBrightness">Maximum brightness (0-256): </label>
+        <!-- <input type="number" id="randomGradMaxBrightness" value="256" placeholder="eg. 256" /> -->
+        <input id="randomGradMaxBrightness" type="range" min="1" max="256" value="256" />
+    </div>
+    <div class="item">
+        <div class="label">Run random gradients:</div>
+        <button id="startRandomGradient">Start random gradients</button>
+        <button id="stopRandomGradient">Stop random gradients</button>
+    </div>
+
+    <hr />
+
+    <div class="item checkbox">
         <div>
             <label for="visualise">Visualise lights?</label>
             <input type="checkbox" id="visualise" checked />
         </div>
     </div>
 
-    <div class="item">
+    <div class="item checkbox">
         <div>
             <label for="log">Show data for API call?</label>
             <input type="checkbox" id="log" checked />

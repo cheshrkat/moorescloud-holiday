@@ -1,0 +1,75 @@
+* { 
+    margin: 0; 
+}
+body { 
+    font-family: sans-serif; 
+    padding: 1rem; 
+    font-size: 16px; 
+}
+
+button, input { 
+    min-width: 100px; 
+}
+
+label, .label { 
+    display: block;
+    margin: 0 0 0.5rem 0;
+}
+[type='checkbox'] { 
+    min-width: 0; 
+}
+
+.item { 
+    margin: 1rem 0; 
+}
+
+#current span {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    margin: 0 2px 2px 0; 
+    background: #fff;
+}
+
+#current span.gradient {
+    transition:         
+        background 1s linear,
+        border-color 1s linear;
+}
+.code {
+    word-break: break-word;
+    font-family: monospace;
+}
+#visualiser {
+    padding: 1rem;
+    border: 1px solid #eee;
+}
+#currentapiurl {
+    margin-bottom: 1rem;
+}
+hr { 
+    background: #eee; 
+    height: 1px; 
+    border: 0; 
+}
+
+@media screen and (min-width: 800px) {
+    body {
+        font-size: 14px; 
+    }
+    label, .label { 
+        min-width: 20rem; 
+        display: inline-block; 
+    }
+}
+
+@media screen and (max-width: 800px) {
+    body, button, input { font-size: 20px; }
+}
+
+/* iPad portrait */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
+    body, button, input { font-size: 20px; }
+}

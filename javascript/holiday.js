@@ -102,6 +102,14 @@
         return res;
     }
 
+    function randomRGBvalue(max) {
+        var maximum = max || 256;
+        return Math.floor(Math.random() * maximum);
+    }
+    function randomRGB(max) {
+        return [randomRGBvalue(max),randomRGBvalue(max),randomRGBvalue(max)];
+    }
+
     function createGradFrame(from,to,steps) {
         var gradFrom = from || [0, 0, 0];
         var gradTo = to || [255, 0, 0];
@@ -261,13 +269,56 @@
         return false;
     });
 
+
+
+    /* Gradients --------------------------------------------------------------- */
     var gradInput = document.getElementById("grad");
+    var gradStepsInput = document.getElementById("gradSteps");
     document.getElementById("gradOn").addEventListener('click', function(){
-        setAndVisualise(createGradFrame('#000000', gradInput.value),'gradient');
+        setAndVisualise(createGradFrame('#000000', gradInput.value, gradSteps.value),'gradient');
         return false;
     });
     document.getElementById("gradOff").addEventListener('click', function(){
-        setAndVisualise(createGradFrame(gradInput.value, [0,0,0]),'gradient');
+        setAndVisualise(createGradFrame(gradInput.value, [0,0,0], gradSteps.value),'gradient');
+        return false;
+    });
+
+    var randomGradStepsInput = document.getElementById("randomGradSteps");
+    var gradIntervalInput = document.getElementById("gradInterval");
+    var randomGradMaxBrightnessInput = document.getElementById("randomGradMaxBrightness");
+    function stopRandomGradient() {
+        console.log("stopRandomGradient");
+        if (randomGradientTimer !== null) {
+            clearInterval(randomGradientTimer);
+            randomGradientTimer = null;
+        }
+    }
+    var randomGradientTimer = null;
+    document.getElementById('startRandomGradient').addEventListener('click', function(){
+
+        stopRandomGradient();
+
+        var randomGradientSteps = gradSteps.value,
+            randomGradientInterval = gradInterval.value,
+            randomGradientMax = randomGradMaxBrightnessInput.value,
+            randomGradientFrom = [0,0,0];
+
+        function setRandomGrad() {
+            randomGradientTo = randomRGB(randomGradientMax);
+            console.log("randomGradient from " + randomGradientFrom + " to " + randomGradientTo + " (max: " + randomGradientMax + ")");
+            setAndVisualise(createGradFrame(randomGradientFrom, randomGradientTo, randomGradientSteps),'gradient');
+            randomGradientFrom = randomGradientTo;
+        }
+
+        setRandomGrad();
+
+        randomGradientTimer = setInterval(function () {
+            setRandomGrad();
+        }, randomGradientInterval);
+        return false;
+    });
+    document.getElementById('stopRandomGradient').addEventListener('click', function(){
+        stopRandomGradient();
         return false;
     });
 
