@@ -4,9 +4,7 @@ h1. Coding with the Moorescloud Holiday
 
 This repo shows a few different ways to get a *Holiday by Moorescloud* to do some simple things in a few different languages. Starting with turning the 50 lights on and off; and then moving on to chase, comet and gradient effects.
 
-Since the official docs aren't online any more, this readme has some basic info on setting things up; and a copy of the PDF in case (like me) you lost your instruction book.
-
-I've tried to write this without assuming knowledge, as I know a few people use their Moorescloud Holiday to try out coding with their kids. If you know things like colour formats, just skip those sections.
+I've tried to write this readme without assuming too much knowledge, as I know a few people use their Moorescloud Holiday to try out coding with their kids. If you know things like colour formats, just skip those sections.
 
 h2. Tips
 
@@ -45,7 +43,12 @@ If you need to quickly pick some Hex or RGB colours, Google provides a handy col
 
 h2. Holiday documentation
 
-Holiday's hardware engineer, Kean Maizels, maintains some docs at "http://www.kean.com.au/oshw/Holiday/":http://www.kean.com.au/oshw/Holiday/ including details on fixing wifi issues.
+Since the official docs aren't online any more, this readme collects what I could; has some basic info on setting things up; and a copy of the PDF in case (like me) you lost your instruction book.
+
+Elsewhere:
+
+* Holiday's hardware engineer, Kean Maizels, maintains some docs at "http://www.kean.com.au/oshw/Holiday/":http://www.kean.com.au/oshw/Holiday/ including details on fixing wifi issues.
+* One thing to highlight is don't try to upgrade Linux on the Holiday, it'll stop working. If you know what you are doing you could rebuild it with "Froosh's updated ARM build":https://froosh.net/2017/02/06/rebuilding-the-holiday-pt1/ but note the code samples here may not work with that build (they might, I just don't know!).
 
 Hardware docs:
 
@@ -166,17 +169,25 @@ Sets the lights and also does a simple visualisation of the lights and API calls
 
 !https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-visualiser.png!
 
-It's effectively an alternative UI to control the Holiday. It wasn't really what I intended to do but that's how it turned out :)
+It's effectively a simulator and alternative UI to control the Holiday. It wasn't really what I intended to do but that's how it turned out :)
 
 This one's a little different as *you have to put the code onto the holiday* (to avoid CORS issues) to actually control the lights. 
 
-If you view it locally (by opening @javascript/index.html@ in a browser) it still does the visualisation but it won't actually affect the lights. Not actually bad to practice before uploading your code to the Holiday.
+If you view it locally (by opening @javascript/index.html@ in a browser) it still does the visualisation but it won't actually affect the lights. This does mean you can try things out before uploading your code to the Holiday.
 
 Setup:
 
 # Enable SSH on your holiday as noted earlier
-## Open Terminal/bash shell in your local copy of @/javascript/@ and use <code>scp * holiday@yourholidaysname:/home/holiday/holideck/iotas/www/apps/test/</code> to copy the files to your holiday.
-## Copy the files in @/javascript/@ to @/home/holiday/holideck/iotas/www/apps/test/@ using sFTP
+# Then copy the files to your holiday...
+# Method one:
+## Use an sFTP client like FileZilla to connect to @yourholidaysname@ (port @22@) 
+## Copy the files in @/javascript/@ to @/home/holiday/holideck/iotas/www/apps/test/@ 
+# Method two:
+## Using bash, starting in the root of this repo
+## @cd /javascript/@
+## @scp * holiday@yourholidaysname:/home/holiday/holideck/iotas/www/apps/test/@
+
+Note that you can name @/test/@ whatever you want.
 
 Usage:
 
@@ -212,6 +223,11 @@ Usage:
 
 h3. /python
 
+Dependencies:
+
+* Python
+* Python "requests":http://docs.python-requests.org/en/latest/user/install/#install
+
 Setup:
 
 * Edit the URL in @requests.put@ to point to your holiday.
@@ -222,7 +238,4 @@ Usage:
 * @python holiday.py off@
 * @python holiday.py hash 123456@ (where 123456 is any valid colour hash)
 
-Dependencies:
-
-* Python
-* Python "requests":http://docs.python-requests.org/en/latest/user/install/#install
+Note that most of the original Moorescloud code was done in Python, so if you want more advanced examples have a dig around "https://github.com/moorescloud":https://github.com/moorescloud
