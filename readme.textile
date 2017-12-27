@@ -206,6 +206,7 @@ Requirements:
 Setup:
 
 * Run @npm install@ in the @/node-udp/@ directory to install @garthk's "holiday-udp":https://github.com/garthk/holiday-udp library
+** If the NPM install fails for some reason, there is a backup copy - rename @/node-udp/backup_node_modules/@ to @/node-udp/node_modules/@ and try running the code. A proper NPM install is still recommended, this is just an all-else-fails option.
 * (optional) Edit the "holiday" variable in the .js files so they point to your Holiday (IP or hostname). You can skip editing the files and pass your holiday's name to the script as an argument: @node script holidayname@
 
 Usage:
