@@ -1,59 +1,228 @@
 !https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday.png!
 
-h1. Messing around with Holiday
+h1. Coding with the Moorescloud Holiday
 
-Getting "Holiday by Moorescloud":http://moorescloud.com/index.html#holiday to do some relatively simple things in a few different languages - from the simple on/off to chase, comet and gradient effects.
+This repo shows a few different ways to get a *Holiday by Moorescloud* to do some simple things in a few different languages. Starting with turning the 50 lights on and off; and then moving on to chase, comet and gradient effects.
 
-h2. /bash
+Since the official docs aren't online any more, this readme has some basic info on setting things up; and a copy of the PDF in case (like me) you lost your instruction book.
+
+I've tried to write this without assuming knowledge, as I know a few people use their Moorescloud Holiday to try out coding with their kids. If you know things like colour formats, just skip those sections.
+
+h2. Tips
+
+* Start with the on/off examples. They are written about as simply as possible. Also, from experience, you really want to be able to turn them off when you get something wrong ;)
+* It's a good idea to note the Holiday's original name, something like @holiday-ab123c@ even if you change it on the Device Name tab.
+* My Holiday is named @enlightenment@, so anywhere you need to update some code to point to your Holiday you can look for that string. If you're curious, all my hardware gets names from Red Dwarf; and Enlightenment is a holoship - a ship made of light :)
+* I should also note this code isn't particularly neat or tidy. It works but use it at your own risk ;)
+
+h3. Bash shell
+
+I'm assuming you're using a bash shell to run this code. That means: 
+
+* OSX Terminal on Mac
+* Windows Subsystem for Linux (WSL) on Windows; or Cygwin. Note the default Command Prompt does not work for this!
+* It's usually just called 'Terminal' on Linux
+
+Any time I say 'in bash' or 'in the CLI' I mean running a command in the bash shell.
+
+h3. Colour formats
+
+If you aren't familiar with Hex and RGB...
+
+Hex colours are the @#123456@ format, where the numbers map to RRGGBB in a @00@ to @ff@ range. Examples:
+
+* @#ffffff@ - white
+* @#000000@ - black
+* @#ff0000@ - red
+
+RGB colours are three numbers in an array @[1,2,3]@ where 1 is red, 2 is green and 3 is blue. Each number can be a value from @0@ (off) to @255@ (full brightness). Examples:
+
+* @[255,255,255]@ - white
+* @[0,0,0]@ - black
+* @[255,0,0]@ - red
+
+If you need to quickly pick some Hex or RGB colours, Google provides a handy colour picker if you "search for hex colour":https://www.google.com.au/search?q=hex+colour
+
+h2. Holiday documentation
+
+Holiday's hardware engineer, Kean Maizels, maintains some docs at "http://www.kean.com.au/oshw/Holiday/":http://www.kean.com.au/oshw/Holiday/ including details on fixing wifi issues.
+
+Hardware docs:
+
+* "Holiday manual (PDF)":https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-manual.pdf covers finding and connecting to your Holiday. Note you can also find via MAC address in your router, the MAC's printed on the Holiday unit.
+* "Holiday hardware architecture (PDF)":https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-architecture-rev2.pdf has deeper hardware info that you probably don't really need.  
+
+Enabling SSH:
+
+# In your browser
+## Open the Holiday application (http://yourholidaysname/)
+## Go to Settings - Developer Mode
+## Toggle dev mode ON.
+# In bash check the name @ping yourholidaysname@ (ctrl+c to stop)
+# Then you can connect. With the default settings:
+## @ssh holiday@yourholidaysname@
+## Default password is @holiday@
+## Once you've logged in you should see something like @[holiday@yourholidaysname ~]$@
+# It is recommended you change the default password by running the command @passwd@ on the Holiday; but be sure to put that new password into your password safe for future reference.
+
+There are two Holiday APIs:
+
+# "The UDP 'Secret API'":https://github.com/moorescloud/secretapi - see the github repo for documentation.
+# IOTAS (Internet Of Things Access Server) API
+
+h3. IOTAS API
+
+The official docs for this are gone, so what follows is an incomplete and unofficial bit of API documentation, reverse-engineered by reading consumer code I wrote three years ago. So be nice if you find an error ;)
+
+There are two endpoints:
+
+* @/iotas/0.1/device/moorescloud.holiday/localhost/setlights@ - sends a frame of colours to set the lights
+* @/iotas/0.1/device/moorescloud.holiday/localhost/gradient@ - starts a gradient transition for the lights
+* Both endpoints take a JSON payload and return @{"value": true}@ or @{"value": false}@
+
+*Setlights* takes a JSON object with a @lights@ property, which takes an array of 50 hex colours for the globes. For example to set all lights on to full white:
+
+<pre><code>{ "lights": [ 
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff",
+"#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"
+] }</code></pre>
+
+...and just in case you're now sitting with your Holiday on your desk blinding you, here's how to set them all off:
+
+<pre><code>{ "lights": [ 
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000",
+"#000000", "#000000", "#000000", "#000000", "#000000"
+] }</code></pre>
+
+*Gradient* takes a JSON object with @begin@, @end@ and @steps@ defining the start and end colours in RGB arrays; and the number of steps to take in the transition. For example to start from black and work up to full white in 50 steps:
+
+<pre><code>{ 
+	"begin": [0, 0, 0], 
+	"end": [0, 255, 0], 
+	"steps": 128 
+}</code></pre>
+
+Note gradients take some time and don't cancel previous gradients when they start. So if one gradient hasn't had time to complete before you set another one, you will get a nasty stuttering effect.
+
+To finish a gradient with the lights entirely off, steps must be set to at least half the highest value. Remember to count zero in th 0-255 range, so there are 256 steps; which means to go from full brightness to black, you must use at least 128 steps (see example above).
+
+h3. Trying the APIs in bash
+
+A simple way to try this out is to create @foo.json@ files and send them to your Holiday in bash using @curl@. You can give this a go with @on.json@ and @off.json@ in the @/bash/@ directory, or you can create your own files.
+
+First, export your Holiday's name to a variable (this has to be done once every bash session):
+
+@export HOLIDAYNAME=yourholidaysname@
+
+Then create... 
+
+# @setlights-on.json@ with the first hex example above (setting all lights to @#ffffff@)
+# @setlights-off.json@ with the first hex example above (setting all lights to @#000000@)
+# @gradient-on.json@ with the gradient example above
+
+Then from the same directory in bash, run:
+
+@curl -X PUT -d @setlights-on.json http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/setlights@
+@curl -X PUT -d @setlights-off.json http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/setlights@
+@curl -X PUT -d @gradient-on.json http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
+
+h2. Code samples
+
+h3. /bash
 
 If you're feeling impatient, just run @holiday.sh@ for a set of options including the nice simple "on" and "off".
 
+Setup:
+
+* Edit the @HOLIDAYURL@ variable in the .sh files so they point to your Holiday (IP or hostname)
+* Ensure you have @curl@ by running @type curl@ in your bash shell.
+
 Scripts:
+
 * @holiday-setlights-with-json-files.sh@ just does setlights taking its JSON objects from .json files. Very simple, easy starting point.
 * @nrl.sh@ adds the critically important maroon and blue options not present in the standard NRL app ;)
 * @holiday.sh@ has more options including sending JSON directly from the script. Uses setlights and gradient API points.
 
-Notes:
-* Edit the @HOLIDAYURL@ variable in the .sh files so they point to your Holiday (IP or hostname)
-* Dependencies: curl. On PC that means you'll need something like Cygwin with the curl module installed.
 
-h2. /javascript
+h3. /javascript
 
 Sets the lights and also does a simple visualisation of the lights and API calls:
 
 !https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-visualiser.png!
 
-This one's a little different as you have to put it on the holiday (to avoid CORS issues) to actually control the lights. If you view it locally it still does the visualisation but it won't actually affect the lights.
+It's effectively an alternative UI to control the Holiday. It wasn't really what I intended to do but that's how it turned out :)
 
-# Enable SSH on your holiday http://support.moorescloud.com/2013/12/how-to-ssh-into-your-holiday/
-# Then either...
+This one's a little different as *you have to put the code onto the holiday* (to avoid CORS issues) to actually control the lights. 
+
+If you view it locally (by opening @javascript/index.html@ in a browser) it still does the visualisation but it won't actually affect the lights. Not actually bad to practice before uploading your code to the Holiday.
+
+Setup:
+
+# Enable SSH on your holiday as noted earlier
 ## Open Terminal/bash shell in your local copy of @/javascript/@ and use <code>scp * holiday@yourholidaysname:/home/holiday/holideck/iotas/www/apps/test/</code> to copy the files to your holiday.
 ## Copy the files in @/javascript/@ to @/home/holiday/holideck/iotas/www/apps/test/@ using sFTP
-# Browse to "http://yourholidaysname/apps/test/":http://yourholidaysname/apps/test/
-
-h2. /node-udp
-
-Uses "nodejs":http://nodejs.org/ and @garthk's "holiday-udp":https://github.com/garthk/holiday-udp library.
 
 Usage:
-* @npm install@
-* @node on.js@ & @node off.js@ do what they sound like.
-* @node chase.js@ does a simple coloured chase.
-* @node holiday.js@ does on and off; plus a runner/comet effect
 
-Notes:
-* Edit the "holiday" variable in the .js files so they point to your Holiday (IP or hostname).
+* Browse to "http://yourholidaysname/apps/test/":http://yourholidaysname/apps/test/
+* Or, open @javascript/index.html@ in a browser to view locally and see any changes you've made to the code. This won't control your lights, just the visualiser.
 
-h2. /python
+h3. /node-udp
+
+This is an alternative way to drive your Holiday with Javascript, using the UDP 'Secret API' (named for the people who created it, not because it's a secret).
+
+Requirements:
+
+* "nodejs":http://nodejs.org/ (pre-install)
+
+Setup:
+
+* Run @npm install@ in the @/node-udp/@ directory to install @garthk's "holiday-udp":https://github.com/garthk/holiday-udp library
+* (optional) Edit the "holiday" variable in the .js files so they point to your Holiday (IP or hostname). You can skip editing the files and pass your holiday's name to the script as an argument: @node script holidayname@
 
 Usage:
+
+* @node on.js <holidayname>@ and @node off.js <holidayname>@
+** @node on.js@ sets all lights to white.
+** @node off.js@ sets all lights to black (off).
+* @node chase.js <brightness> <interval> <holidayname>@ does a simple coloured chase.
+** @node chase.js@
+** @node chase.js 50 2000@ - brightness 50, 2 second interval
+* @node holiday.js@ does on and off; plus a runner/comet effect:
+** @node holiday.js on@ - fill with RGB 255,255,255
+** @node holiday.js off@ - fill with RGB 0,0,0
+** @node holiday.js on [10,20,30]@ - fill with RGB 10,20,30
+** @node holiday.js runner@ - comet effect
+
+h3. /python
+
+Setup:
+
+* Edit the URL in @requests.put@ to point to your holiday.
+
+Usage:
+
 * @python holiday.py on@
 * @python holiday.py off@
 * @python holiday.py hash 123456@ (where 123456 is any valid colour hash)
 
 Dependencies:
-* Python
-* "requests":http://docs.python-requests.org/en/latest/user/install/#install
 
-Notes:
-Edit the URL in @requests.put@ to point to your holiday.
+* Python
+* Python "requests":http://docs.python-requests.org/en/latest/user/install/#install
