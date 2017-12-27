@@ -43,7 +43,7 @@ If you need to quickly pick some Hex or RGB colours, Google provides a handy col
 
 h2. Holiday documentation
 
-Since the official docs aren't online any more, this readme collects what I could; has some basic info on setting things up; and a copy of the PDF in case (like me) you lost your instruction book.
+Since the official docs aren't online any more, this readme collects what I could find; has some basic info on setting things up; and a copy of the PDF in case you lost your instruction book.
 
 Elsewhere:
 
@@ -67,7 +67,7 @@ Enabling SSH:
 ## @ssh holiday@yourholidaysname@
 ## Default password is @holiday@
 ## Once you've logged in you should see something like @[holiday@yourholidaysname ~]$@
-# It is recommended you change the default password by running the command @passwd@ on the Holiday; but be sure to put that new password into your password safe for future reference.
+# You can change the default password by running the command @passwd@ on the Holiday; but be sure to put that new password into your password safe for future reference. I've no idea how you'd recover SSH access if you forget the password.
 
 There are two Holiday APIs:
 
@@ -99,7 +99,7 @@ There are two endpoints:
 "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"
 ] }</code></pre>
 
-...and just in case you're now sitting with your Holiday on your desk blinding you, here's how to set them all off:
+...and just in case you're now sitting with your Holiday going at full bore on your desk, blinding you, here's how to set them all off:
 
 <pre><code>{ "lights": [ 
 "#000000", "#000000", "#000000", "#000000", "#000000",
@@ -124,7 +124,7 @@ There are two endpoints:
 
 Note gradients take some time and don't cancel previous gradients when they start. So if one gradient hasn't had time to complete before you set another one, you will get a nasty stuttering effect.
 
-To finish a gradient with the lights entirely off, steps must be set to at least half the highest value. Remember to count zero in th 0-255 range, so there are 256 steps; which means to go from full brightness to black, you must use at least 128 steps (see example above).
+To finish a gradient with the lights entirely off, @steps@ must be set to at least half the highest value. Remember to count zero in th 0-255 range, so there are 256 steps; which means to go from full brightness to black, you must use at least 128 steps (see example above).
 
 h3. Trying the APIs in bash
 
@@ -170,13 +170,13 @@ Sets the lights and also does a simple visualisation of the lights and API calls
 
 !https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-visualiser.png!
 
-It's effectively a simulator and alternative UI to control the Holiday. It wasn't really what I intended to do but that's how it turned out :)
-
-This one's a little different as *you have to put the code onto the holiday* (to avoid CORS issues) to actually control the lights. 
+It's effectively a simulator and bare-bones alternative interface to control the Holiday. It wasn't really what I intended to do but that's how it turned out :)
 
 If you view it locally (by opening @javascript/index.html@ in a browser) it still does the visualisation but it won't actually affect the lights. This does mean you can try things out before uploading your code to the Holiday.
 
 Setup:
+
+This one's a little different as *you have to put the code onto the holiday* to actually control the lights (due to the Holiday's CORS/cross-origin security settings).
 
 # Enable SSH on your holiday as noted earlier
 # Then copy the files to your holiday...
