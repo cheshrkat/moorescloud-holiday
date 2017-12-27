@@ -6,10 +6,12 @@ HOLIDAYURL=enlightenment
 sendfile() {
     echo -e "\n$1 $2"
     curl -X PUT -d @$2.json http://"$HOLIDAYURL"/iotas/0.1/device/moorescloud.holiday/localhost/$1
+    echo -e "\n"
 }
 sendjson() {
     echo -e "\n$1 $2"
     curl -X PUT -d $2 http://"$HOLIDAYURL"/iotas/0.1/device/moorescloud.holiday/localhost/$1
+    echo -e "\n"
 }
 pause() {
     sleep $SLEEPDURATION
