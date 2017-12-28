@@ -1,4 +1,4 @@
-!https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday.png!
+!https://raw.githubusercontent.com/cheshrkat/holiday/master/_docs/holiday.png!
 
 h1. Coding with the Moorescloud Holiday
 
@@ -83,8 +83,8 @@ Elsewhere:
 
 Hardware docs:
 
-* "Holiday manual (PDF)":https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-manual.pdf covers finding and connecting to your Holiday. Note you can also find via MAC address in your router, the MAC's printed on the Holiday unit.
-* "Holiday hardware architecture (PDF)":https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-architecture-rev2.pdf has deeper hardware info that you probably don't really need.  
+* "Holiday manual (PDF)":https://raw.githubusercontent.com/cheshrkat/holiday/master/_docs/holiday-manual.pdf covers finding and connecting to your Holiday. Note you can also find via MAC address in your router, the MAC's printed on the Holiday unit.
+* "Holiday hardware architecture (PDF)":https://raw.githubusercontent.com/cheshrkat/holiday/master/_docs/holiday-architecture-rev2.pdf has deeper hardware info that you probably don't really need.  
 
 Enabling SSH:
 
@@ -240,7 +240,7 @@ h3. /javascript
 
 Sets the lights and also does a simple visualisation of the lights and API calls:
 
-!https://raw.githubusercontent.com/cheshrkat/holiday/master/holiday-visualiser.png!
+!https://raw.githubusercontent.com/cheshrkat/holiday/master/_docs/holiday-visualiser.png!
 
 It's effectively a simulator and bare-bones alternative interface to control the Holiday. It wasn't really what I intended to do but that's how it turned out :)
 
