@@ -42,7 +42,7 @@ elif [[ $1 == randomgrad ]]; then
          BEGINER=[$BEGINR,$BEGING,$BEGINB]
          ENDER=[$ENDR,$ENDG,$ENDB]
          echo $BEGINER,$ENDER
-         JSON={\"begin\":$BEGINER,\"end\":$ENDER,\"steps\":50}
+         JSON={\"begin\":$BEGINER,\"end\":$ENDER,\"steps\":128}
          echo $JSON
          curl -X PUT -d $JSON http://$HOLIDAYURL/iotas/0.1/device/moorescloud.holiday/localhost/gradient
          sleep $SLEEPDURATION

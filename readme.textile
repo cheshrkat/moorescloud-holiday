@@ -4,7 +4,7 @@ h1. Coding with the Moorescloud Holiday
 
 This repo shows a few different ways to get a *Holiday by Moorescloud* to do some simple things in a few different languages. Starting with turning the 50 lights on and off; and then moving on to chase, comet and gradient effects.
 
-I've tried to write this readme without assuming too much knowledge, as I know a few people use their Moorescloud Holiday to try out coding with their kids. If you know things like colour formats, just skip those sections.
+I've tried to write this readme without assuming too much knowledge, as I know some people use their Moorescloud Holiday to try out coding with their kids. If you know things like bash and colour formats, just skip the Tips section.
 
 h2. Tips
 
@@ -21,7 +21,25 @@ I'm assuming you're using a bash shell to run this code. That means:
 * Windows Subsystem for Linux (WSL) on Windows; or Cygwin. Note the default Command Prompt does not work for this!
 * It's usually just called 'Terminal' on Linux
 
-Any time I say 'in bash' or 'in the CLI' I mean running a command in the bash shell.
+Any time I say 'in bash' or 'in the CLI' I mean running a command in the bash shell. 
+
+You will need to download or clone this repo, then run commands from the code sample subdirectories. If you are unfamiliar with bash, a simple trick to find the right location is to start your bash shell then run one of...
+
+* OSX: @open .@
+* WSL: @explorer.exe .@
+* Cygwin: @cygstart .@
+
+...which will open the bash shell's location in your GUI file explorer. Then you can match up the locations to understand where to put the files. You move between directories with the @cd@ (change directory) command. 
+
+For example, to run the bash commands:
+
+* @cd bash@
+* @./holiday.sh on@
+* @./holiday.sh off@
+
+If you get a permission error, instead of using @./@ syntax, use the bash command instead @bash holiday.sh on@ etc. Or you can run @chmod u+x *.sh@ and try again.
+
+To move out of the bash directory, run @cd ..@ to move back 'up' one level, then you can move into other directories eg. @cd node-udp@.
 
 h3. Colour formats
 
@@ -64,15 +82,31 @@ Enabling SSH:
 ## Toggle dev mode ON.
 # In bash check the name @ping yourholidaysname@ (ctrl+c to stop)
 # Then you can connect. With the default settings:
-## @ssh holiday@yourholidaysname@
+## <code>ssh holiday@yourholidaysname</code>
 ## Default password is @holiday@
 ## Once you've logged in you should see something like @[holiday@yourholidaysname ~]$@
 # You can change the default password by running the command @passwd@ on the Holiday; but be sure to put that new password into your password safe for future reference. I've no idea how you'd recover SSH access if you forget the password.
 
 There are two Holiday APIs:
 
-# "The UDP 'Secret API'":https://github.com/moorescloud/secretapi - see the github repo for documentation.
+# UDP 'Secret API'
 # IOTAS (Internet Of Things Access Server) API
+
+The UDP API is used in the @/node-dup@ code samples; all others are using the IOTAS API.
+
+h3. UDP API
+
+"See the UDP 'Secret API' github repo for full details":https://github.com/moorescloud/secretapi
+
+<blockquote>
+<p>Holiday by MooresCloud provides a very fast UDP-based API to control its globes. Port 9988 is opened and is advertised through mDNS - the avahi service record for _secretapi._udp is included in "this repo":https://github.com/moorescloud/secretapi.</p>
+<p>The packet format is very simple, 160 (0xa0) bytes composed of:</p>
+<ul>
+	<li>10 bytes of header (ignored)</li>
+	<li>150 bytes of data, the RGB values for each of the 50 globes.</li>
+</ul>
+<p>Packets not of exactly 160 bytes will be rejected.</p>	
+</blockquote>
 
 h3. IOTAS API
 
@@ -186,7 +220,7 @@ This one's a little different as *you have to put the code onto the holiday* to 
 # Method two:
 ## Using bash, starting in the root of this repo
 ## @cd /javascript/@
-## @scp * holiday@yourholidaysname:/home/holiday/holideck/iotas/www/apps/test/@
+## <code>scp * holiday@yourholidaysname:/home/holiday/holideck/iotas/www/apps/test/</code>
 
 Note that you can name @/test/@ whatever you want.
 
