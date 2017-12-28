@@ -148,18 +148,18 @@ There are two endpoints:
 "#000000", "#000000", "#000000", "#000000", "#000000"
 ] }</code></pre>
 
-*Gradient* takes a JSON object with @begin@, @end@ and @steps@ defining the start and end colours in RGB arrays; and the number of steps to take in the transition. For example to start from black and work up to full white in 50 steps:
+*Gradient* takes a JSON object with @begin@, @end@ and @steps@ defining the start and end colours in RGB arrays; and the number of steps to take in the transition. For example to start from black and work up to full white in 128 steps:
 
 <pre><code>{ 
   "begin": [0, 0, 0], 
-  "end": [0, 255, 0], 
+  "end": [255, 255, 255], 
   "steps": 128 
 }</code></pre>
 
 ...and back down:
 
 <pre><code>{ 
-  "begin": [0, 255, 0], 
+  "begin": [255, 255, 255], 
   "end": [0, 0, 0], 
   "steps": 128 
 }</code></pre>
