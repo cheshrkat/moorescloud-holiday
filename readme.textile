@@ -18,7 +18,7 @@ h3. Bash shell
 I'm assuming you're using a bash shell to run this code. That means: 
 
 * OSX Terminal on Mac
-* Windows Subsystem for Linux (WSL) on Windows; or Cygwin. Note the default Command Prompt does not work for this!
+* Windows Subsystem for Linux (WSL) on Windows 10; or Cygwin for older windows. Note the default Command Prompt does not work for this!
 * It's usually just called 'Terminal' on Linux
 
 Any time I say 'in bash' or 'in the CLI' I mean running a command in the bash shell. 
@@ -189,7 +189,7 @@ If you're feeling impatient, just run @holiday.sh@ for a set of options includin
 Setup:
 
 * Edit the @HOLIDAYURL@ variable in the .sh files so they point to your Holiday (IP or hostname)
-* Ensure you have @curl@ by running @type curl@ in your bash shell.
+* Ensure you have @curl@ by running @type curl@ in your bash shell. You may need to install Xcode on OSX to enable this.
 
 Scripts:
 
