@@ -180,12 +180,17 @@ First, export your Holiday's name to a variable (this has to be done once every 
 
 This means you can copy and paste the rest of the commands, which use the @$HOLIDAYNAME@ environmental variable you just set.
 
-The gradient API is actually short enough to write the JSON directly, just be sure to enclose the whole JSON object in single quotes:
+The gradient API is actually short enough to write the JSON directly, just be sure to enclose the whole JSON object in single quotes.
 
-@curl -X PUT -d '{ "begin": [0, 0, 0], "end": [0, 255, 0], "steps": 128 }' http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
-@curl -X PUT -d '{ "begin": [0, 0, 255], "end": [0, 0, 0], "steps": 128 }' http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
+Gradient from off/black to red:
 
-The setlights API can theoretically be set directly but it's very long, so it's easier to write files. Create...
+@curl -X PUT -d '{"begin":[0,0,0],"end":[0,255,0],"steps":128}' http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
+
+Gradient from red back to off/black
+
+@curl -X PUT -d '{"begin":[0,0,255],"end":[0,0,0],"steps":128}' http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
+
+The setlights API can be set this way as well, but it's very long so it's easier to write files. Create...
 
 # @setlights-on.json@ with the first hex example above (setting all lights to @#ffffff@)
 # @setlights-off.json@ with the first hex example above (setting all lights to @#000000@)
@@ -198,6 +203,8 @@ Then from the same directory in bash, run:
 You can do the same with gradient JSON:
 
 @curl -X PUT -d @gradient-on.json http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
+
+I'm sure you can figure out what to put into the files at this point :) From here on, setting the lights is just a matter of creating your JSON payload in whatever language you like, then sending it to the Holiday. Have fun!
 
 h2. Code samples
 
