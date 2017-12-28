@@ -192,15 +192,15 @@ First, export your Holiday's name to a variable (this has to be done once every 
 
 This means you can copy and paste the rest of the commands, which use the @$HOLIDAYNAME@ environmental variable you just set.
 
-The gradient API is actually short enough to write the JSON directly, just be sure to enclose the whole JSON object in single quotes.
+The gradient API is actually short enough to write the JSON directly, just be sure to enclose the whole JSON object in single quotes. Run these commands on one line.
 
 Gradient from off/black to red:
 
-@curl -X PUT -d '{"begin":[0,0,0],"end":[0,255,0],"steps":128}' http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
+@curl -X PUT -d '{"begin":[0,0,0],"end":[255,0,0],"steps":128}' http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
 
-Gradient from red back to off/black
+Gradient from green to off/black:
 
-@curl -X PUT -d '{"begin":[0,0,255],"end":[0,0,0],"steps":128}' http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
+@curl -X PUT -d '{"begin":[0,255,0],"end":[0,0,0],"steps":128}' http://$HOLIDAYNAME/iotas/0.1/device/moorescloud.holiday/localhost/gradient@
 
 The setlights API can be set this way as well, but it's very long so it's easier to write files. Create...
 
