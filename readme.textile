@@ -6,6 +6,18 @@ This repo shows a few different ways to get a *Holiday by Moorescloud* to do som
 
 I've tried to write this readme without assuming too much knowledge, as I know some people use their Moorescloud Holiday to try out coding with their kids. If you know things like bash and colour formats, just skip the Tips section.
 
+*Contents*
+
+* "Tips":#tips
+* "Holiday Documentation":#holiday-documentation
+** "UDP API":#udp-api
+** "IOTAS API":#iotas-api
+* "Code Samples":#code-samples
+** "Bash/Shell":#bash
+** "JavaScript":#javascript
+** "NodeJS using UDP":#node-udp
+** "Python":#python
+
 h2. Tips
 
 * Start with the on/off examples. They are written about as simply as possible. Also, from experience, you really want to be able to turn them off when you get something wrong ;)
@@ -84,7 +96,7 @@ Enabling SSH:
 # Then you can connect. With the default settings:
 ## <code>ssh holiday@yourholidaysname</code>
 ## Default password is @holiday@
-## Once you've logged in you should see something like @[holiday@yourholidaysname ~]$@
+## Once you've logged in you should see something like <code>[holiday@yourholidaysname ~]$</code>
 # You can change the default password by running the command @passwd@ on the Holiday; but be sure to put that new password into your password safe for future reference. I've no idea how you'd recover SSH access if you forget the password.
 
 There are two Holiday APIs:
