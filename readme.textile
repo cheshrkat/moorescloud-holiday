@@ -78,7 +78,11 @@ Since the official docs aren't online any more, this readme collects what I coul
 Elsewhere:
 
 * Holiday's hardware engineer, Kean Maizels, maintains some docs at "http://www.kean.com.au/oshw/Holiday/":http://www.kean.com.au/oshw/Holiday/ including details on fixing wifi issues.
-* One thing to highlight is don't try to upgrade Linux on the Holiday, it'll stop working. If you know what you are doing you could rebuild it with "Froosh's updated ARM build":https://froosh.net/2017/02/06/rebuilding-the-holiday-pt1/ but note the code samples here may not work with that build (they might, I just don't know!).
+
+Some general maintenance tips:
+
+* If you use the Holiday a lot (some people use it every day, all year!) you should periodically SSH in to the Holiday and clear <code>/var/log</code> ("tip from Mark":https://twitter.com/mpesce/status/1467037614582603779)
+* Don't try to upgrade Linux on the Holiday, it'll stop working. If you know what you are doing you could rebuild it with "Froosh's updated ARM build":https://froosh.net/2017/02/06/rebuilding-the-holiday-pt1/ but note the code samples here may not work with that build (they might, I just don't know!).
 * If you want to fix your Holiday's timer so it doesn't jitter, "have a look at this PR":https://github.com/moorescloud/holideck/pull/7/files which was sadly too late to ship with the units.
 
 Hardware docs:
