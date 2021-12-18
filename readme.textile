@@ -71,6 +71,14 @@ RGB colours are three numbers in an array @[1,2,3]@ where 1 is red, 2 is green a
 
 If you need to quickly pick some Hex or RGB colours, Google provides a handy colour picker if you "search for hex colour":https://www.google.com.au/search?q=hex+colour
 
+h2. Holiday maintenance tips
+
+This is not exhaustive, just some tips noted down over the years:
+
+* If you use the Holiday a lot (some people use it every day, all year!) you should periodically SSH in to the Holiday and clear <code>/var/log</code> ("tip from Mark":https://twitter.com/mpesce/status/1467037614582603779)
+* Don't try to upgrade Linux on the Holiday, it'll stop working. If you know what you are doing you could rebuild it with "Froosh's updated ARM build":https://froosh.net/2017/02/06/rebuilding-the-holiday-pt1/ but note the code samples here may not work with that build (they might, I just don't know!).
+* If you want to fix your Holiday's timer so it doesn't jitter, "have a look at this PR":https://github.com/moorescloud/holideck/pull/7/files which was sadly too late to ship with the units.
+
 h2. Holiday documentation
 
 Since the official docs aren't online any more, this readme collects what I could find; has some basic info on setting things up; and a copy of the PDF in case you lost your instruction book.
@@ -78,12 +86,6 @@ Since the official docs aren't online any more, this readme collects what I coul
 Elsewhere:
 
 * Holiday's hardware engineer, Kean Maizels, maintains some docs at "http://www.kean.com.au/oshw/Holiday/":http://www.kean.com.au/oshw/Holiday/ including details on fixing wifi issues.
-
-Some general maintenance tips:
-
-* If you use the Holiday a lot (some people use it every day, all year!) you should periodically SSH in to the Holiday and clear <code>/var/log</code> ("tip from Mark":https://twitter.com/mpesce/status/1467037614582603779)
-* Don't try to upgrade Linux on the Holiday, it'll stop working. If you know what you are doing you could rebuild it with "Froosh's updated ARM build":https://froosh.net/2017/02/06/rebuilding-the-holiday-pt1/ but note the code samples here may not work with that build (they might, I just don't know!).
-* If you want to fix your Holiday's timer so it doesn't jitter, "have a look at this PR":https://github.com/moorescloud/holideck/pull/7/files which was sadly too late to ship with the units.
 
 Hardware docs:
 
