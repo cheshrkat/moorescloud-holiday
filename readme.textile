@@ -8,7 +8,8 @@ I've tried to write this readme without assuming too much knowledge, as I know s
 
 *Contents*
 
-* "Tips":#tips
+* "Tips for using this repo":#tips
+* "Holiday Maintenance Tips":#holiday-maintenance-tips
 * "Holiday Documentation":#holiday-documentation
 ** "UDP API":#udp-api
 ** "IOTAS API":#iotas-api
